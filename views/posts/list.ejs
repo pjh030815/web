@@ -1,8 +1,11 @@
 <div class="my-5">
     <h1 class="text-center mb-5">게시글</h1>
+    <div class="text-end mb-2">
+        <button class="btn btn-link px-5 btn-insert">글쓰기</button>
+    </div>
     <form id="searchForm" class="mb-2">
         <div class="input-group" style="width: 185px;">
-            <input type="text" class="form-control form-control-sm" id="keyword" name="keyword">
+            <input type="text" class="form-control form-control-sm" id="keyword" name="keyword" placeholder="검색">
             <button class="btn btn-primary btn-sm" type="submit">검색</button>
         </div>
     </form>
@@ -22,7 +25,7 @@
         {{#each .}}
         <tr>
             <td>{{ID}}</td>
-            <td>{{TITLE}}</td>
+            <td><a href="/posts/{{ID}}">{{TITLE}}</a></td>
             <td>{{SNAME}}({{WRITER}})</td>
             <td>{{FMT_DATE}}</td>
          </tr>
@@ -38,6 +41,15 @@
     let page=1;
     let size=5;
     getList();
+
+     $(".btn-insert").on("click", function(){
+        if(scode){
+            location.href='/posts/insert';
+        }else{
+            sessionStorage.setItem("target", "/posts/insert");
+            location.href='/users/login';
+        }
+    });
 
     $("#searchForm").on("submit", function(e){
         e.preventDefault();

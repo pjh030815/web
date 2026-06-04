@@ -1,0 +1,35 @@
+<div class="my-5">
+    <h1 class="text-center mb-5">글수정</h1>
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+            <form name="frm">
+                <input value="<%=post.TITLE%>" name="title" class="form-control mb-3" placeholder="제목을 입력하세요">
+                <textarea name="content" class="form-control mb-3" rows="15" placeholder="내용을 입력하세요"><%=post.CONTENT%></textarea>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary px-5">저장</button>
+                    <button type="reset" class="btn btn-secondary px-5">취소</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    const id="<%=post.ID%>";
+
+    $(frm).on("submit", function(e){
+        e.preventDefault();
+        const title = $(frm.title).val();
+        const content = $(frm.content).val();
+        console.log(id, title, content);
+        if(confirm(`${id}번 게시글을 수정하실래요?`)){
+            $.ajax({
+                type:"post",
+                url:"/posts/update",
+                data:{id, title, content},
+                success:function(){
+                    location.href=`/posts/${id}`;
+                }
+            })
+        }
+    })
+</script>
