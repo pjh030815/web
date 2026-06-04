@@ -41,7 +41,12 @@
                     } else {
                         sessionStorage.setItem("sname", data.SNAME);
                         sessionStorage.setItem("scode", data.SCODE);
-                        location.href="/";
+                        const target = sessionStorage.getItem("target");
+                        if(target){
+                            location.href=target;
+                        }else{
+                            location.href="/";
+                        }
                     }
                 }
             })
